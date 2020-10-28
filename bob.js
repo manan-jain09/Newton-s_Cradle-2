@@ -4,10 +4,11 @@ class Bob{
         this.y = y;
         this.r = r;
         var paper_options = {
-            isStatic: false,
             restitution: 1,
             friction: 0,
-            density: 0.8,
+            frictionAir: 0.0,
+            slop: 1,
+            inertia: Infinity,
         }
         this.body = Bodies.circle(this.x, this.y, this.r / 2, paper_options);
         World.add(world, this.body);

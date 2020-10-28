@@ -13,22 +13,27 @@ function setup() {
 	var canvas = createCanvas(windowWidth, windowHeight);
 
 	engine = Engine.create();
-    world = engine.world;
+	world = engine.world;
 
-	bobDiameter = 0;
+	// let canvasmouse = Mouse.create(canvas.elt);
+	// canvasmouse.pixelratio = pixelDensity();
+	// let options = {
+	// 	mouse: canvasmouse
+	// }
+	// mConstraint = MouseConstraint.create(engine, options);
+	// World.add(world, mConstraint);
 
-	roof = new Roof(width / 2, height / 2 - 200, width - 200 , 20);
-	bob1 = new Bob(width / 2 - 240, height / 2 + 99, 120);
-	bob2 = new Bob(width / 2 - 120, height / 2 + 99, 120);
-	bob3 = new Bob(width / 2, height / 2 + 99, 120);
-	bob4 = new Bob(width / 2 + 120 , height / 2 + 99, 120);
-	bob5 = new Bob(width / 2 + 240 , height / 2 + 99, 120);
+	bob1 = new Bob(width / 2 - 240, height / 2 + 45, 120);
+	bob2 = new Bob(width / 2 - 120, height / 2 + 45, 120);
+	bob3 = new Bob(width / 2, height / 2 + 45, 120);
+	bob4 = new Bob(width / 2 + 120 , height / 2 + 45, 120);
+	bob5 = new Bob(width / 2 + 240 , height / 2 + 45, 120);
 	
-	rope1 = new Rope(bob1.body, roof.body, -bobDiameter * 2 - 240, 0);
-	rope2 = new Rope(bob2.body, roof.body,-bobDiameter * 1 - 120, 0);
-	rope3 = new Rope(bob3.body, roof.body,0, 0);
-	rope4 = new Rope(bob4.body, roof.body, bobDiameter * 1 + 120, 0);
-	rope5 = new Rope(bob5.body, roof.body, bobDiameter * 2 + 240, 0);
+	rope1 = new Rope(bob1.body, {x: width / 2 - 240, y: height / 2 - 150});
+	rope2 = new Rope(bob2.body, {x: width / 2 - 120, y: height / 2 - 150});
+	rope3 = new Rope(bob3.body, {x: width / 2 , y: height / 2 - 150});
+	rope4 = new Rope(bob4.body, {x: width / 2 + 120, y: height / 2 - 150});
+	rope5 = new Rope(bob5.body, {x: width / 2 + 240, y: height / 2 - 150});
 
 
 	
@@ -54,14 +59,16 @@ function draw() {
   bob3.display();
   bob4.display();
   bob5.display();
-  roof.display();
 
  
 }
 
-function keyPressed() {
-	if (keyCode === UP_ARROW) {
-		Matter.Body.applyForce(bob5.body, bob5.body.position,{x:900,y: -45});
-	}
+function mouseDragged(){
+	Matter.Body.setPosition(bob5.body, {x: mouseX , y: mouseY});
+}
+
+
+function mouseReleased(){
+	Matter.Body.applyForce(bob5.body, bob5.body.position,{x:-20,y: -100});
 }
 
